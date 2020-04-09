@@ -20,7 +20,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import me.aolphn.book.view.GrayFrameLayout
 
-
+/**
+ * @author OF
+ *
+ */
 class ScrollingActivity : AppCompatActivity() {
     companion object{
         val TAG = "ScrollActivity"
@@ -72,7 +75,7 @@ class ScrollingActivity : AppCompatActivity() {
             setTarget(fab)
             start()
             Looper.myQueue().addIdleHandler {
-                //面试官：加入我开启了一个永远不停止的动画，那么IdleHandler还会执行嘛？
+                //面试官：假如我开启了一个永远不停止的动画，那么IdleHandler还会执行嘛？
                 //我：。。。。
                 showSnakeBar("this is idle handler")
                 false

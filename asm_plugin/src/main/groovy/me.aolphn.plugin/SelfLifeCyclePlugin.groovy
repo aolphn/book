@@ -10,7 +10,7 @@ class SelfLifeCyclePlugin implements Plugin<Project>{
         System.out.println("this is gradle plugin")
         def android = project.extensions.getByType(AppExtension)
         ChangeActivityAttribute.change(android)
-        android.registerTransform(new SelfTransform())
+//        android.registerTransform(new SelfTransform())
 
     }
 }

@@ -16,7 +16,7 @@ public class LifeCycleMethodVisitor extends MethodVisitor {
     public void visitCode() {
         super.visitCode();
         System.out.println("self define visit code:"+className+"."+methodName);
-        mv.visitLdcInsn("TAG");
+        mv.visitLdcInsn("ASM-TAG");
         mv.visitLdcInsn(className+"------>"+methodName);
         String descriptor = "(Ljava/lang/String;Ljava/lang/String;)I";
         mv.visitMethodInsn(Opcodes.INVOKESTATIC,"android/util/Log","i",descriptor,false);

@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.LayoutInflaterCompat
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import me.aolphn.book.view.GrayFrameLayout
 
 
@@ -56,6 +59,12 @@ class ScrollingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        layoutInflater.factory2
         setContentView(R.layout.activity_scrolling)
+        runBlocking {
+            delay(2000)
+            runOnUiThread {
+                selfDefine()
+            }
+        }
 //        val paint = Paint()
 //        val cm = ColorMatrix()
 //        cm.setSaturation(0f)
@@ -67,4 +76,8 @@ class ScrollingActivity : AppCompatActivity() {
 //
 //        return handleLayout(name,context,attrs)?:super.onCreateView(name, context, attrs)
 //    }
+
+    private fun  selfDefine(){
+        Toast.makeText(this,"self define was invoked",Toast.LENGTH_LONG).show()
+    }
 }

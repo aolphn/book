@@ -53,20 +53,24 @@ class SelfTransform extends Transform{
             transformInput.directoryInputs.each {DirectoryInput directoryInput->
                File dir = directoryInput.file
                if (dir) {
-                   dir.traverse (type:FileType.FILES,nameFilter:~/.*\.class/){File file->
+                   dir.eachFileRecurse {File file->
+                       def name = file.name
+                       if (name.endsWith(".class") && !name.startsWith("R\$")) {
+
 //                       System.out.println("find class:${file.name}")
-                       ClassReader classReader = new ClassReader(file.bytes)
-                       ClassWriter classWriter = new ClassWriter(classReader,ClassWriter.COMPUTE_MAXS)
-                       LifeCycleClassVisitor classVisitor = new LifeCycleClassVisitor(classWriter)
-                       classReader.accept(classVisitor,ClassReader.EXPAND_FRAMES)
-                       if (classVisitor.isClassChanged()) {
-                           byte[] bytes = classWriter.toByteArray()
-                           FileOutputStream outputStream    = new FileOutputStream(file.path)
-                           outputStream.write(bytes)
-                           outputStream.close()
-                           LogUtils.print("${file.name} was changed")
-                       } else {
+                           ClassReader classReader = new ClassReader(file.bytes)
+                           ClassWriter classWriter = new ClassWriter(classReader,ClassWriter.COMPUTE_MAXS)
+                           LifeCycleClassVisitor classVisitor = new LifeCycleClassVisitor(classWriter)
+                           classReader.accept(classVisitor,ClassReader.EXPAND_FRAMES)
+                           if (classVisitor.isClassChanged()) {
+                               byte[] bytes = classWriter.toByteArray()
+                               FileOutputStream outputStream    = new FileOutputStream(file.path)
+                               outputStream.write(bytes)
+                               outputStream.close()
+                               LogUtils.print("${file.name} was changed")
+                           } else {
 //                           LogUtils.print("${file.name} does't changed")
+                           }
                        }
                    }
                }

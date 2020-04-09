@@ -16,9 +16,6 @@ buildscript {
     }
     dependencies {
         classpath 'me.aolphn.plugin:asm_plugin:1.0.0'
-//        classpath 'danny.lifecycle.plugin:asm_lifecycle_plugin:1.0.0'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 android {
@@ -31,6 +28,7 @@ android {
         versionName "1.0"
 //        multiDexKeepFile file('maindexlist.txt') // keep specific classes
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "boolean", "enableGray", "false"
     }
     dexOptions {
 //        additionalParameters = ['--multi-dex', '--main-dex-list=' + project.rootDir.absolutePath + '/app/maindexlist.txt', '--minimal-main-dex',

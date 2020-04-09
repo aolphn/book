@@ -43,12 +43,12 @@ class BookApplication: Application() {
             lastFrame = it
             LogUtils.i(msg = "check last frame time:$diff")
         }
-        GlobalScope.launch {
-            val  result = doTimeConsumingTask();
-            val  result2 = doTimeConsumingTask();
-
-
-        }
+//        GlobalScope.launch {
+//            val  result = doTimeConsumingTask();
+//            val  result2 = doTimeConsumingTask();
+//
+//
+//        }
         registerActivityLifecycleCallbacks(object :ActivityLifecycleCallbacks{
             override fun onActivityPaused(activity: Activity?) {
             }
@@ -73,7 +73,9 @@ class BookApplication: Application() {
             }
 
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-                appGray(activity)
+                if (BuildConfig.enableGray) {
+                    appGray(activity)
+                }
             }
         })
     }

@@ -1,0 +1,106 @@
+{
+  "data": [
+    {
+      "c1": "Limit",
+      "c2": "Soft Limit ",
+      "c3": "Hard Limit",
+      "c4": "Units"
+    },
+    {
+      "c1": "Max cpu time",
+      "c2": "unlimited",
+      "c3": "unlimited",
+      "c4": "seconds"
+    },
+    {
+      "c1": "Max file size",
+      "c2": "unlimited",
+      "c3": "unlimited",
+      "c4": "bytes"
+    },
+    {
+      "c1": "Max data size",
+      "c2": "unlimited",
+      "c3": "unlimited",
+      "c4": "bytes"
+    },
+    {
+      "c1": "Max stack size ",
+      "c2": "8388608",
+      "c3": "unlimited",
+      "c4": "bytes"
+    },
+    {
+      "c1": "Max core file size ",
+      "c2": "0",
+      "c3": "unlimited",
+      "c4": "bytes"
+    },
+    {
+      "c1": "Max resident set",
+      "c2": "unlimited",
+      "c3": "unlimited",
+      "c4": "bytes"
+    },
+    {
+      "c1": "Max processes ",
+      "c2": "4808",
+      "c3": "4808",
+      "c4": "processes"
+    },
+    {
+      "c1": "Max open files",
+      "c2": "32768",
+      "c3": "32768",
+      "c4": "files"
+    },
+    {
+      "c1": "Max locked memory",
+      "c2": "65536",
+      "c3": "65536",
+      "c4": "bytes"
+    },
+    {
+      "c1": "Max address space",
+      "c2": "unlimited",
+      "c3": "unlimited",
+      "c4": "bytes"
+    },
+    {
+      "c1": "Max file locks",
+      "c2": "unlimited",
+      "c3": "unlimited",
+      "c4": "locks"
+    },
+    {
+      "c1": "Max pending signals",
+      "c2": "4808",
+      "c3": "4808",
+      "c4": "signals"
+    },
+    {
+      "c1": "Max msgqueue size",
+      "c2": "819200",
+      "c3": "819200",
+      "c4": "bytes"
+    },
+    {
+      "c1": "Max nice priority",
+      "c2": "40",
+      "c3": "40",
+      "c4": ""
+    },
+    {
+      "c1": "Max realtime priority",
+      "c2": "0",
+      "c3": "0",
+      "c4": ""
+    },
+    {
+      "c1": "Max realtime timeout",
+      "c2": "unlimited",
+      "c3": "unlimited",
+      "c4": "us"
+    }
+  ]
+}

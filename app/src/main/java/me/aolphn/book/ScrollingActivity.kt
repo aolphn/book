@@ -1,9 +1,8 @@
 package me.aolphn.book
 
 import android.animation.AnimatorInflater
-import android.animation.ObjectAnimator
 import android.content.Context
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,14 +10,15 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.LayoutInflaterCompat
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_scrolling.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import me.aolphn.book.databinding.ContentScrollingBinding
 import me.aolphn.book.view.GrayFrameLayout
+import me.aolphn.book.watchdog.WatchDogKiller
+import me.aolphn.book.watchdog.WatchDogUtil.fireTimeout
+import me.aolphn.book.watchdog.WatchDogUtil.resetWatchDogStatus
 
 /**
  * @author OF
@@ -68,9 +68,9 @@ class ScrollingActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        layoutInflater.factory2
-        setContentView(R.layout.activity_scrolling)
-
+        val binding = me.aolphn.book.databinding.ActivityScrollingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_FULLSCREEN
         AnimatorInflater.loadAnimator(this,R.animator.anim).apply {
             setTarget(fab)
             start()
@@ -81,12 +81,30 @@ class ScrollingActivity : AppCompatActivity() {
                 false
             }
         }
+        val content = binding.contentScroll
+        content.killWatchDog.setOnClickListener {
+            WatchDogKiller.stopWatchDog();
+            // 触发生效
+            Runtime.getRuntime().gc();
+            System.runFinalization();
+            resetWatchDogStatus();
+        }
+        content.triggerTimeout.setOnClickListener {
+            // 因为 stopWatchDog需要下一次循环才会生效，这里先post一下
+            Handler().postDelayed({
+                Thread(Runnable {
+                    fireTimeout()
+                    Runtime.getRuntime().gc()
+                    System.runFinalization()
+                }).start()
+            }, 100)
 
-//        val paint = Paint()
-//        val cm = ColorMatrix()
-//        cm.setSaturation(0f)
-//        paint.colorFilter = ColorMatrixColorFilter(cm)
-//        window.decorView.setLayerType(View.LAYER_TYPE_HARDWARE, paint)
+            Toast.makeText(this@ScrollingActivity, "请等待。。。。", Toast.LENGTH_SHORT).show()
+        }
+
+        content.checkProcessInfo.setOnClickListener {
+            startActivity(Intent(this@ScrollingActivity,ProcessInfoActivity::class.java))
+        }
     }
 
 //    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {

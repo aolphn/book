@@ -26,28 +26,22 @@ class BookApplication: Application() {
     var lastFrame = 0L
     init {
         LogUtils.i(msg = "check application init time:${System.currentTimeMillis()}")
-        Looper.getMainLooper().setMessageLogging {msg->
-            if (msg.startsWith(">>>>>")) {
-                map[currentCount]=msg
-                startTime = System.currentTimeMillis();
-            }else if (msg.startsWith("<<<<<")) {
-                endTime = System.currentTimeMillis();
-            }
-            val diff = endTime - startTime
-            if (diff > 20) {
-                LogUtils.i(msg ="check our printer:$msg,diff:$diff,size:${map.size}")
-            }
-        }
-        Choreographer.getInstance().postFrameCallback {
-            val diff = it-lastFrame
-            lastFrame = it
-            LogUtils.i(msg = "check last frame time:$diff")
-        }
-//        GlobalScope.launch {
-//            val  result = doTimeConsumingTask();
-//            val  result2 = doTimeConsumingTask();
-//
-//
+//        Looper.getMainLooper().setMessageLogging {msg->
+//            if (msg.startsWith(">>>>>")) {
+//                map[currentCount]=msg
+//                startTime = System.currentTimeMillis();
+//            }else if (msg.startsWith("<<<<<")) {
+//                endTime = System.currentTimeMillis();
+//            }
+//            val diff = endTime - startTime
+//            if (diff > 20) {
+//                LogUtils.i(msg ="check our printer:$msg,diff:$diff,size:${map.size}")
+//            }
+//        }
+//        Choreographer.getInstance().postFrameCallback {
+//            val diff = it-lastFrame
+//            lastFrame = it
+//            LogUtils.i(msg = "check last frame time:$diff")
 //        }
         registerActivityLifecycleCallbacks(object :ActivityLifecycleCallbacks{
             override fun onActivityPaused(activity: Activity?) {

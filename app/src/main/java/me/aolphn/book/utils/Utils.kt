@@ -10,6 +10,27 @@ object ProcessUtils{
     fun oomAdj():String{
         return catCurrentProcessInfo("oom_adj")
     }
+    fun status():String{
+        return catCurrentProcessInfo("status")
+    }
+    fun cgroup():String{
+        return catCurrentProcessInfo("cgroup")
+    }
+    fun sched():String{
+        return catCurrentProcessInfo("sched")
+    }
+    fun mountinfo():String{
+        return catCurrentProcessInfo("mountinfo")
+    }
+    fun io():String{
+        return catCurrentProcessInfo("io")
+    }
+    fun statm():String{
+        return catCurrentProcessInfo("statm")
+    }
+    fun sessionid():String{
+        return catCurrentProcessInfo("sessionid")
+    }
     fun oomScore():String{
         return catCurrentProcessInfo("oom_score")
     }

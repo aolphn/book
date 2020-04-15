@@ -20,6 +20,8 @@ object  LogUtils {
             w(msg = it.toString())
         }
     }
-
+    fun checkThreadI(msg:String){
+        i("Check-Thread","$msg current thread name:${Thread.currentThread().name}")
+    }
 
 }

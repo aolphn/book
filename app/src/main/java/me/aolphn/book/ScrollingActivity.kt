@@ -14,11 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.LayoutInflaterCompat
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_scrolling.*
-import me.aolphn.book.databinding.ContentScrollingBinding
 import me.aolphn.book.view.GrayFrameLayout
-import me.aolphn.book.watchdog.WatchDogKiller
 import me.aolphn.book.watchdog.WatchDogUtil.fireTimeout
-import me.aolphn.book.watchdog.WatchDogUtil.resetWatchDogStatus
 
 /**
  * @author OF
@@ -83,11 +80,11 @@ class ScrollingActivity : AppCompatActivity() {
         }
         val content = binding.contentScroll
         content.killWatchDog.setOnClickListener {
-            WatchDogKiller.stopWatchDog();
+//            WatchDogKiller.stopWatchDog();
             // 触发生效
-            Runtime.getRuntime().gc();
-            System.runFinalization();
-            resetWatchDogStatus();
+//            Runtime.getRuntime().gc();
+//            System.runFinalization();
+//            resetWatchDogStatus();
         }
         content.triggerTimeout.setOnClickListener {
             // 因为 stopWatchDog需要下一次循环才会生效，这里先post一下
@@ -101,7 +98,20 @@ class ScrollingActivity : AppCompatActivity() {
 
             Toast.makeText(this@ScrollingActivity, "请等待。。。。", Toast.LENGTH_SHORT).show()
         }
-
+        content.changeDaemonTimeout.setOnClickListener {
+            try {
+                val c = Class.forName("java.lang.Daemons")
+                val maxField = c.getDeclaredField("MAX_FINALIZE_NANOS")
+                maxField.isAccessible = true
+                maxField[null] = Long.MAX_VALUE
+            } catch (e: ClassNotFoundException) {
+                e.printStackTrace()
+            } catch (e: NoSuchFieldException) {
+                e.printStackTrace()
+            } catch (e: IllegalAccessException) {
+                e.printStackTrace()
+            }
+        }
         content.checkProcessInfo.setOnClickListener {
             startActivity(Intent(this@ScrollingActivity,ProcessInfoActivity::class.java))
         }

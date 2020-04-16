@@ -26,6 +26,12 @@
                 android:layout_margin="@dimen/text_margin"
                 android:text="@string/trigger_timeout" />
         <Button
+                android:id="@+id/changeDaemonTimeout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@string/change_daemon_timeout" />
+        <Button
                 android:id="@+id/checkProcessInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

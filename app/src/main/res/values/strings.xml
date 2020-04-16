@@ -93,6 +93,7 @@
     <string name="kill_watch_dog">Kill watch dog</string>
     <string name="trigger_timeout">Trigger timeout</string>
     <string name="check_process_info">Check process info</string>
+    <string name="change_daemon_timeout">Change Daemon timeout threshold</string>
     <string name="content">content</string>
     <string name="title">title</string>
 </resources>

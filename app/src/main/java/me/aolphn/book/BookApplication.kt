@@ -16,6 +16,7 @@ import android.view.View
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import me.aolphn.book.utils.LogUtils
+import java.util.concurrent.TimeoutException
 import java.util.concurrent.atomic.AtomicInteger
 
 class BookApplication: Application() {
@@ -43,6 +44,14 @@ class BookApplication: Application() {
 //            lastFrame = it
 //            LogUtils.i(msg = "check last frame time:$diff")
 //        }
+        val originalDefaultHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            if (e is TimeoutException && "FinalizerWatchdogDaemon" == t.name) {
+                LogUtils.w(msg = "FinalizerWatchdogDaemon timeout we ignore it")
+            } else {
+                originalDefaultHandler.uncaughtException(t,e)
+            }
+        }
         registerActivityLifecycleCallbacks(object :ActivityLifecycleCallbacks{
             override fun onActivityPaused(activity: Activity?) {
             }

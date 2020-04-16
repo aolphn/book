@@ -3,10 +3,11 @@ package me.aolphn.book
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import me.aolphn.book.adapter.BaseAdapter
 import me.aolphn.book.adapter.IData
 import me.aolphn.book.databinding.ActivityProcessInfoBinding
+import me.aolphn.book.utils.CatInfo
 import me.aolphn.book.utils.LogUtils
 import me.aolphn.book.utils.ProcessUtils
 
@@ -16,11 +17,14 @@ class ProcessInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityProcessInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        GlobalScope.launch{
+
+        }
         runBlocking {
-            val limits = ProcessUtils.limit()
-            val oomAdj = ProcessUtils.oomAdj()
-            val oomScore = ProcessUtils.oomScore()
-            val oomScoreAdj = ProcessUtils.oomScoreAdj()
+            val limits = ProcessUtils.catCurrentProcessInfo(CatInfo.limits)
+            val oomAdj =  ProcessUtils.catCurrentProcessInfo(CatInfo.oomAdj)
+            val oomScore = ProcessUtils.catCurrentProcessInfo(CatInfo.oomScore)
+            val oomScoreAdj = ProcessUtils.catCurrentProcessInfo(CatInfo.oomScoreAdj)
             LogUtils.checkThreadI("runBlocking")
             runOnUiThread {
                 val dataList = ArrayList<IData>().apply {
@@ -49,6 +53,7 @@ class ProcessInfoActivity : AppCompatActivity() {
                 binding.recyclerView.adapter = adapter
                 binding.recyclerView.layoutManager = LinearLayoutManager(this@ProcessInfoActivity)
             }
+
         }
     }
 

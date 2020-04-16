@@ -46,6 +46,7 @@ class BookApplication: Application() {
 //        }
         val originalDefaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            //https://mp.weixin.qq.com/s/uFcFYO2GtWWiblotem2bGg
             if (e is TimeoutException && "FinalizerWatchdogDaemon" == t.name) {
                 LogUtils.w(msg = "FinalizerWatchdogDaemon timeout we ignore it")
             } else {
